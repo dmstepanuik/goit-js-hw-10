@@ -14,13 +14,12 @@ inputRef.addEventListener('input', debounce(onInputChange, DEBOUNCE_DELAY));
 
 async function onInputChange(e) {
   const value = e.target.value.toLowerCase().trim();
-  console.log(e.target.value);
+
   if (value === '') return;
 
   let data = null;
   try {
     data = await fetchCountry(value);
-    console.log(data);
   } catch (e) {
     Notify.failure(e.message);
     data = [];
@@ -52,27 +51,15 @@ function fetchCountry(value) {
   return fetch(
     `${URL}/${value}?fields=capital,name,population,flags,languages`
   ).then(res => {
-    console.log(1, res.ok, res);
     if (!res.ok) {
       throw new Error('Oops, there is no country with that name');
       return;
     }
     return res.json();
   });
-
-  // .then(res => {
-  //   console.log(2, res);
-  //   return res.map(it => it.name.official);
-  // });
 }
 function removeChildren(el) {
   while (el.firstChild) {
     el.removeChild(el.firstChild);
   }
 }
-
-// Используй публичный API Rest Countries, а именно ресурс name, возвращающий массив объектов стран удовлетворивших критерий поиска. Добавь минимальное оформление элементов интерфейса.
-
-// Напиши функцию fetchCountries(name) которая делает HTTP-запрос на ресурс name и возвращает промис с массивом стран - результатом запроса. Вынеси её в отдельный файл fetchCountries.js и сделай именованный экспорт.
-
-// Фильтрация полей
