@@ -5,9 +5,11 @@ export function getCountryListMarkUp(countryList) {
 function getListItemMarkUp(item) {
   const {
     name: { official },
+    flags: { svg },
   } = item;
+  console.log(official, svg);
 
   return `
-  <li>${official}</li>
+  <li><img src="${svg}" width='30'> ${official}</li>
   `;
 }
